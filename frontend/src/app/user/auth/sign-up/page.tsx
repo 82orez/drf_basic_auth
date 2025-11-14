@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { authService } from "@/services/auth";
 import type { RegisterForm } from "@/types/auth";
+import { GoEye } from "react-icons/go";
+import { PiEyeClosed } from "react-icons/pi";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -17,6 +19,8 @@ export default function RegisterPage() {
   });
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -115,15 +119,25 @@ export default function RegisterPage() {
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                 Password
               </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                required
-                value={formData.password}
-                onChange={handleChange}
-                className="relative mt-1 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
-              />
+              <div className="relative">
+                <input
+                  id="password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  required
+                  value={formData.password}
+                  onChange={handleChange}
+                  className="relative mt-1 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 pr-10 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
+                />
+                {formData.password && (
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600">
+                    {showPassword ? <GoEye size={22} /> : <PiEyeClosed size={22} />}
+                  </button>
+                )}
+              </div>
               {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password[0]}</p>}
             </div>
 
@@ -131,15 +145,25 @@ export default function RegisterPage() {
               <label htmlFor="password_confirm" className="block text-sm font-medium text-gray-700">
                 Confirm Password
               </label>
-              <input
-                id="password_confirm"
-                name="password_confirm"
-                type="password"
-                required
-                value={formData.password_confirm}
-                onChange={handleChange}
-                className="relative mt-1 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
-              />
+              <div className="relative">
+                <input
+                  id="password_confirm"
+                  name="password_confirm"
+                  type={showPasswordConfirm ? "text" : "password"}
+                  required
+                  value={formData.password_confirm}
+                  onChange={handleChange}
+                  className="relative mt-1 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 pr-10 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
+                />
+                {formData.password_confirm && (
+                  <button
+                    type="button"
+                    onClick={() => setShowPasswordConfirm(!showPasswordConfirm)}
+                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600">
+                    {showPasswordConfirm ? <GoEye size={22} /> : <PiEyeClosed size={22} />}
+                  </button>
+                )}
+              </div>
               {errors.password_confirm && <p className="mt-1 text-sm text-red-600">{errors.password_confirm[0]}</p>}
             </div>
           </div>
