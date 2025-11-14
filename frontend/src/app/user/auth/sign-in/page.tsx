@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
+import { GoEye } from "react-icons/go";
+import { PiEyeClosed } from "react-icons/pi";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -16,6 +18,7 @@ export default function LoginPage() {
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     const messageParam = searchParams.get("message");
@@ -55,7 +58,7 @@ export default function LoginPage() {
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
         </div>
 
-        {message && <div className="rounded text-center border border-green-400 bg-green-100 px-4 py-3 text-green-700">{message}</div>}
+        {message && <div className="rounded border border-green-400 bg-green-100 px-4 py-3 text-center text-green-700">{message}</div>}
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4">
@@ -79,15 +82,25 @@ export default function LoginPage() {
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                 Password
               </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                required
-                value={formData.password}
-                onChange={handleChange}
-                className="relative mt-1 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
-              />
+              <div className="relative">
+                <input
+                  id="password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  required
+                  value={formData.password}
+                  onChange={handleChange}
+                  className="relative mt-1 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 pr-10 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
+                />
+                {formData.password && (
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600">
+                    {showPassword ? <GoEye size={22} /> : <PiEyeClosed size={22} />}
+                  </button>
+                )}
+              </div>
               {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password[0]}</p>}
             </div>
           </div>
