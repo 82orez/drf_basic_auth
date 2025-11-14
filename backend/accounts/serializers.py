@@ -21,6 +21,13 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             "last_name",
         )
 
+    @staticmethod
+    def validate_email(value):
+        """이메일 중복 체크"""
+        if CustomUser.objects.filter(email=value).exists():
+            raise serializers.ValidationError("이미 사용중인 이메일입니다.")
+        return value
+
     def validate(self, attrs):
         if attrs["password"] != attrs["password_confirm"]:
             raise serializers.ValidationError("Passwords don't match")
