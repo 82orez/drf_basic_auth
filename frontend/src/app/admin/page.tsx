@@ -1,8 +1,7 @@
-// frontend/src/pages/admin.tsx (Next.js 페이지 라우터 사용시)
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const AdminRedirect = () => {
   const router = useRouter();
