@@ -3,7 +3,9 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from django.contrib.auth import login, logout
-from django.contrib.auth.models import User
+
+# from django.contrib.auth.models import User
+from .models import CustomUser
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
@@ -79,7 +81,7 @@ def password_reset_request(request):
     serializer = PasswordResetSerializer(data=request.data)
     if serializer.is_valid():
         email = serializer.validated_data["email"]
-        user = User.objects.get(email=email)
+        user = CustomUser.objects.get(email=email)
 
         # 토큰과 UID 생성
         token = default_token_generator.make_token(user)
@@ -110,7 +112,7 @@ def password_reset_confirm(request, uid, token):
     """비밀번호 재설정 확인"""
     try:
         user_id = force_str(urlsafe_base64_decode(uid))
-        user = User.objects.get(pk=user_id)
+        user = CustomUser.objects.get(pk=user_id)
 
         if not default_token_generator.check_token(user, token):
             return Response(
@@ -126,7 +128,7 @@ def password_reset_confirm(request, uid, token):
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+    except (TypeError, ValueError, OverflowError, CustomUser.DoesNotExist):
         return Response(
             {"error": "Invalid token or user"}, status=status.HTTP_400_BAD_REQUEST
         )
