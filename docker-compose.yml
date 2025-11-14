@@ -1,14 +1,14 @@
 services:
   db:
     image: postgres:16
-    container_name: dj_issue_vote_db
+    container_name: drf_basic_auth_db
     restart: always
     volumes:
       - local_db:/var/lib/postgresql/data
     env_file:
       - ./backend/.env
     ports:
-      - "54322:5432"
+      - "54321:5432"
     networks:
       - my_network
 
@@ -16,7 +16,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: dj_issue_vote_backend
+    container_name: drf_basic_auth_backend
     restart: always
     volumes:
       - ./backend:/app
@@ -38,7 +38,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: dj_issue_vote_frontend
+    container_name: drf_basic_auth_frontend
     ports:
       - "3000:3000"
     restart: always

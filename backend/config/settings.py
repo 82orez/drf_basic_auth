@@ -75,7 +75,7 @@ DATABASES = {
         "USER": env("POSTGRES_USER"),
         "PASSWORD": env("POSTGRES_PASSWORD"),
         "HOST": env("ON_DOCKER_DB_HOST", default="localhost"),
-        "PORT": env("ON_DOCKER_DB_PORT", default="54322"),
+        "PORT": env("ON_DOCKER_DB_PORT", default="54321"),
     }
 }
 
