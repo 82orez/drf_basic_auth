@@ -32,7 +32,7 @@ export default function RegisterPage() {
 
     try {
       await authService.register(formData);
-      router.push("/user/sign-in?message=Registration successful! Please log in.");
+      router.push("/user/auth/sign-in?message=Registration successful! Please log in.");
     } catch (error: any) {
       if (error.response?.data) {
         setErrors(error.response.data);
@@ -162,7 +162,7 @@ export default function RegisterPage() {
           </div>
 
           <div className="text-center">
-            <a href="/user/sign-in" className="font-medium text-indigo-600 hover:text-indigo-500">
+            <a href="/user/auth/sign-in" className="font-medium text-indigo-600 hover:text-indigo-500">
               Already have an account? Sign in
             </a>
           </div>

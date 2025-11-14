@@ -30,7 +30,7 @@ export default function ResetPasswordConfirmPage() {
 
     try {
       await authService.confirmPasswordReset(uid as string, token as string, formData);
-      router.push("/user/sign-in?message=Password reset successful! Please log in with your new password.");
+      router.push("/user/auth/sign-in?message=Password reset successful! Please log in with your new password.");
     } catch (error: any) {
       if (error.response?.data) {
         setErrors(error.response.data);

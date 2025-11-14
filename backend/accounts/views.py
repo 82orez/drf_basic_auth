@@ -88,7 +88,7 @@ def password_reset_request(request):
         uid = urlsafe_base64_encode(force_bytes(user.pk))
 
         # 비밀번호 재설정 링크 생성
-        reset_url = f"{settings.FRONTEND_URL}/user/reset-password/{uid}/{token}/"
+        reset_url = f"{settings.FRONTEND_URL}/user/auth/reset-password/{uid}/{token}/"
 
         # 이메일 발송
         send_mail(

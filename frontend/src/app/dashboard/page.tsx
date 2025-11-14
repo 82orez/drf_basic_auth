@@ -10,13 +10,13 @@ export default function DashboardPage() {
 
   useEffect(() => {
     if (!isLoading && !user) {
-      router.push("/user/sign-in?message=Please log in to access the dashboard.");
+      router.push("/user/auth/sign-in?message=Please log in to access the dashboard.");
     }
   }, [user, isLoading, router]);
 
   const handleLogout = async () => {
     await logout();
-    router.push("/user/sign-in?message=You have been logged out.");
+    router.push("/user/auth/sign-in?message=You have been logged out.");
   };
 
   if (isLoading) {

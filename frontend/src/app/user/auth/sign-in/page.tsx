@@ -110,10 +110,10 @@ export default function LoginPage() {
           </div>
 
           <div className="flex items-center justify-between">
-            <a href="/user/sign-up" className="font-medium text-indigo-600 hover:text-indigo-500">
+            <a href="/user/auth/sign-up" className="font-medium text-indigo-600 hover:text-indigo-500">
               Create an account
             </a>
-            <a href="/user/forgot-password" className="font-medium text-indigo-600 hover:text-indigo-500">
+            <a href="/user/auth/forgot-password" className="font-medium text-indigo-600 hover:text-indigo-500">
               Forgot your password?
             </a>
           </div>

@@ -13,7 +13,7 @@ export default function HomePage() {
       if (user) {
         router.push("/dashboard");
       } else {
-        router.push("/user/sign-in?message=Please log in to access the dashboard.");
+        router.push("/user/auth/sign-in?message=Please log in to access the dashboard.");
       }
     }
   }, [user, isLoading, router]);
