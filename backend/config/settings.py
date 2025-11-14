@@ -161,3 +161,13 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
 ]
+
+
+# 세션 설정
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 7  # 7일 (초 단위)
+SESSION_COOKIE_NAME = "sessionid"  # 세션 쿠키 이름
+SESSION_COOKIE_HTTPONLY = True  # JavaScript에서 쿠키 접근 방지
+SESSION_COOKIE_SECURE = False  # HTTPS 환경에서는 True로 설정
+SESSION_COOKIE_SAMESITE = "Lax"  # CSRF 보호
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # 브라우저 종료 시 세션 유지
+SESSION_SAVE_EVERY_REQUEST = True  # 요청마다 세션 만료 시간 갱신
